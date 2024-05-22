@@ -1,4 +1,5 @@
 #!/bin/sh
+sudo apt install nodejs npm -y
 
 # Function to handle errors
 handle_error() {
