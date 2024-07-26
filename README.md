@@ -56,7 +56,7 @@ This script is provided as-is. Use it at your own risk. No warranties are provid
 
 ## Contact
 
-For issues or contributions, please contact [your_email@example.com](mailto:your_email@example.com).
+For issues or contributions, please contact [epicminer771@gmail.com](mailto:your_email@example.com).
 
 ```
 
