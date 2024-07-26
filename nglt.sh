@@ -10,16 +10,17 @@ handle_error() {
 # Trap errors
 trap 'handle_error $LINENO' ERR
 
-# Prompt the user to choose between ngrok and localtunnel
+# Prompt the user to choose between ngrok, localtunnel, and Cloudflare
 echo "Choose the tunneling service you want to use:"
 echo "1) ngrok"
 echo "2) localtunnel"
-printf "Enter your choice (1 or 2): "
+echo "3) Cloudflare Tunnel"
+printf "Enter your choice (1, 2, or 3): "
 read TUNNEL_CHOICE
 
 # Validate the choice
-if [ "$TUNNEL_CHOICE" != "1" ] && [ "$TUNNEL_CHOICE" != "2" ]; then
-  echo "Invalid choice. Please enter 1 or 2."
+if [ "$TUNNEL_CHOICE" != "1" ] && [ "$TUNNEL_CHOICE" != "2" ] && [ "$TUNNEL_CHOICE" != "3" ]; then
+  echo "Invalid choice. Please enter 1, 2, or 3."
   exit 1
 fi
 
@@ -57,7 +58,7 @@ elif [ "$TUNNEL_CHOICE" = "2" ]; then
   npm install -g localtunnel
 
   # Start localtunnel
-  lt --port "$PORT_NUMBER" & wget -q -O - https://loca.lt/mytunnelpassword &
+  lt --port "$PORT_NUMBER" &
   LT_PID=$!
 
   # Wait for localtunnel to start
@@ -66,6 +67,23 @@ elif [ "$TUNNEL_CHOICE" = "2" ]; then
   # Display localtunnel information
   echo "localtunnel started. You can access it using the localtunnel URL."
 
+# If Cloudflare Tunnel is chosen
+elif [ "$TUNNEL_CHOICE" = "3" ]; then
+  # Download and install cloudflared
+  wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -O cloudflared
+  chmod +x cloudflared
+  sudo mv cloudflared /usr/local/bin
+
+  # Start Cloudflare Tunnel without credentials
+  cloudflared tunnel --url http://localhost:"$PORT_NUMBER" &
+  CF_PID=$!
+
+  # Wait for Cloudflare Tunnel to start
+  sleep 5
+
+  # Display Cloudflare Tunnel information
+  echo "Cloudflare Tunnel started. You can access it using the Cloudflare Tunnel URL."
+
 fi
 
 # Wait for the background processes to complete
@@ -73,4 +91,6 @@ if [ "$TUNNEL_CHOICE" = "1" ]; then
   wait $NGROK_PID
 elif [ "$TUNNEL_CHOICE" = "2" ]; then
   wait $LT_PID
+elif [ "$TUNNEL_CHOICE" = "3" ]; then
+  wait $CF_PID
 fi
