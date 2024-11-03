@@ -13,6 +13,7 @@ bash tunnel.sh <tunnel_choice> <port_number> [--ngrok_auth_token <token>]
   - `1` for ngrok
   - `2` for localtunnel
   - `3` for Cloudflare Tunnel
+  - `4` for boreTunnel
 
 - `<port_number>`: The local port number you want to forward.
 
@@ -41,8 +42,15 @@ bash tunnel.sh <tunnel_choice> <port_number> [--ngrok_auth_token <token>]
    ```bash
    bash tunnel.sh 3 8888
    ```
+   This command sets up a cloudflare Tunnel on port `8888`.
+   
+5. **Using boreTunnel**
 
-   This command sets up a Cloudflare Tunnel on port `8888`.
+   ```bash
+   bash tunnel.sh 4 8888
+   ```
+
+   This command sets up a boreTunnel on port `8888`.
 
 ## Troubleshooting
 
@@ -56,7 +64,7 @@ This script is provided as-is. Use it at your own risk. No warranties are provid
 
 ## Contact
 
-For issues or contributions, please contact [epicminer771@gmail.com](mailto:your_email@example.com).
+For issues or contributions, please contact [epicminer771@gmail.com](mailto:epicminer771@gmail.com).
 
 ```
 
