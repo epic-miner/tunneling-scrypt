@@ -78,8 +78,10 @@ setup_tunnel() {
       if ! command -v lt >/dev/null 2>&1; then
         npm install -g localtunnel
       fi
-      lt --port "$PORT_NUMBER" &
+      lt --port "$PORT_NUMBER" & TUNNEL_URL=$(wget -q -O - https://loca.lt/mytunnelpassword) &
       LT_PID=$!
+      sleep 4
+      echo "Your password for code-server is: $TUNNEL_URL"
       ;;
     3)
       echo "Setting up Cloudflare Tunnel..."
