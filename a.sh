@@ -91,7 +91,7 @@ setup_tunnel() {
       ;;
     4)
       echo "Starting Bore Tunnel using boretunnel.py..."
-      python3 boretunnel.py &
+      python3 borecodeserver.py &
       ;;
     *)
       echo "Invalid tunnel choice."
